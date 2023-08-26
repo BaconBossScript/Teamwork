@@ -1,0 +1,52 @@
+if game.PlaceId == 12641272458 then
+ 
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "BaconBoss Hub | Teamwork Puzzles 2 (Obby)", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+
+_G.egg = true
+
+function egg()
+    while _G.egg == true do
+     game:GetService("ReplicatedStorage").Events.OpenEgg:FireServer("Elemental",1)
+     wait(0.0000001)
+    end
+end
+
+
+local MainTab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+MainTab:AddToggle({
+	Name = "Auto Hatch Cheapest Egg",
+	Default = false,
+	Callback = function(Value)
+		_G.egg = Value
+        egg()
+	end    
+})
+
+MainTab:AddLabel("Note: You Must Wait 5 Second Before Instant Complete Obby")
+
+MainTab:AddToggle({
+	Name = "Auto Complete Obby",
+	Default = false,
+	Callback = function(Value)
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraIsMe/ToraIsMe/main/0Teamwork"))()
+	end    
+})
+
+MainTab:AddLabel("Note: Use This To Change Your Speed")
+
+MainTab:AddToggle({
+	Name = "Inf Yeild",
+	Default = false,
+	Callback = function(Value)
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+	end    
+})
+
+end
