@@ -1,52 +1,145 @@
-if game.PlaceId == 12641272458 then
- 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "BaconBoss Hub | Teamwork Puzzles 2 (Obby)", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "Key System", HidePremium = false, SaveConfig = true})
 
+OrionLib:MakeNotification({
+    Name = "Logged In!",
+    Content = "You Logged In!",
+    Image = "rbxassetid://4483345998",
+    Time = 5
+})
 
-_G.egg = true
+_G.Key = "tysmtysmiloveeveryone"
+_G.KeyInput = "string"
 
-function egg()
-    while _G.egg == true do
-     game:GetService("ReplicatedStorage").Events.OpenEgg:FireServer("Elemental",1)
-     wait(0.0000001)
-    end
+function Hub()
+
+	if game.PlaceId == 12641272458 then
+ 
+		local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+		local Window = OrionLib:MakeWindow({Name = "BaconBoss Hub | Teamwork Puzzles 2 (Obby)", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+		
+		_G.egg = true
+		_G.segg = "Elemental"
+		_G.rb = true
+		
+		function egg()
+			while _G.egg == true do
+			 game:GetService("ReplicatedStorage").Events.OpenEgg:FireServer(_G.segg,1)
+			 wait(0.0000001)
+			end
+		end
+		
+		function rb()
+			while _G.rb == true do
+				game:GetService("ReplicatedStorage").Events.Rebirth:FireServer()
+			 wait(1)
+			end
+		end
+		
+		local MainTab = Window:MakeTab({
+			Name = "Main",
+			Icon = "rbxassetid://4483345998",
+			PremiumOnly = false
+		})
+		
+		local eggTab = Window:MakeTab({
+			Name = "Egg",
+			Icon = "rbxassetid://4483345998",
+			PremiumOnly = false
+		})
+		
+		eggTab:AddToggle({
+			Name = "Auto Hatch",
+			Default = false,
+			Callback = function(Value)
+				_G.egg = Value
+				egg()
+			end    
+		})
+		
+		MainTab:AddToggle({
+			Name = "Auto Rebirth",
+			Default = false,
+			Callback = function(Value)
+				_G.rb = Value
+				rb()
+			end    
+		})
+		
+		eggTab:AddDropdown({
+			Name = "Select",
+			Default = "Elemental",
+			Options = {"Elemental", "Candy", "Hacker", "Rainbow", "Ancient", "Space", "Nightmare", "Pirate", "Ninja", "Anime"},
+			Callback = function(Value)
+				_G.segg = Value
+			end    
+		})
+		
+		MainTab:AddLabel("Note: You Must Wait 5 Second Before Instant Complete Obby")
+		
+		MainTab:AddButton({
+			Name = "Auto Complete Obby Script",
+			Callback = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraIsMe/ToraIsMe/main/0Teamwork"))()
+			  end    
+		})
+		
+		MainTab:AddLabel("Note: Use This To Change Your Speed")
+		
+		MainTab:AddButton({
+			Name = "Inf Yeild",
+			Callback = function()
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+			  end    
+		})
+		end
+
 end
 
-
-local MainTab = Window:MakeTab({
-	Name = "Main",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+function CorrectKeyNotification()
+OrionLib:MakeNotification({
+    Name = "Correct Key!",
+    Content = "You have entered correct key!",
+    Image = "rbxassetid://4483345998",
+    Time = 2
 })
-
-MainTab:AddToggle({
-	Name = "Auto Hatch Cheapest Egg",
-	Default = false,
-	Callback = function(Value)
-		_G.egg = Value
-        egg()
-	end    
-})
-
-MainTab:AddLabel("Note: You Must Wait 5 Second Before Instant Complete Obby")
-
-MainTab:AddToggle({
-	Name = "Auto Complete Obby",
-	Default = false,
-	Callback = function(Value)
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraIsMe/ToraIsMe/main/0Teamwork"))()
-	end    
-})
-
-MainTab:AddLabel("Note: Use This To Change Your Speed")
-
-MainTab:AddToggle({
-	Name = "Inf Yeild",
-	Default = false,
-	Callback = function(Value)
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-	end    
-})
-
 end
+
+function IncorrectKeyNotification()
+OrionLib:MakeNotification({
+    Name = "Inorrect Key!",
+    Content = "You have entered incorrect key!",
+    Image = "rbxassetid://4483345998",
+    Time = 2
+})
+end
+
+local Tab = Window:MakeTab({
+    Name = "Key",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+Tab:AddTextbox({
+    Name = "Enter Key",
+    Default = "",
+    TextDisappear = true,
+    Callback = function(Value)
+        _G.KeyInput = Value
+    end      
+})
+
+Tab:AddButton({
+    Name = "Check Key",
+    Callback = function()
+if _G.KeyInput == _G.Key then
+ CorrectKeyNotification()
+Hub()
+ else
+ IncorrectKeyNotification()
+      end   
+end
+})
+local Section = Tab:AddSection({
+    Name = "Key in: discord.gg/HvpXquveNA"
+})
